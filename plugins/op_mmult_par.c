@@ -146,6 +146,9 @@ static void compute_coeff( mat m1, mat m2, mat res, size_t r, size_t c, size_t d
   size_t           up_to_success = 0;
 #ifdef SYNC_MUTEX
   /* TODO: Declare pthread mutex. Use standard initializer. */
+  pthread_mutex_t  *unlock; 
+  
+  
 #endif
 #ifdef SYNC_COMPARE_AND_SWAP
   int                       lock = GO; 
@@ -160,7 +163,8 @@ static void compute_coeff( mat m1, mat m2, mat res, size_t r, size_t c, size_t d
     thr_arg[ k ].m2   = m2; 
     thr_arg[ k ].res  = res; 
 #ifdef SYNC_MUTEX
-    /* TODO: Make the mutex available to all threads. */
+  /* TODO: Make the mutex available to all threads. */
+  pthread_mutex_lock(unlock);
 #endif
 #ifdef SYNC_COMPARE_AND_SWAP
     thr_arg[ k ].lock = &lock; 
@@ -178,6 +182,18 @@ static void compute_coeff( mat m1, mat m2, mat res, size_t r, size_t c, size_t d
      already joined *before* the final call to pthread_join(3). 
      Remotely resembles a barrier. 
    */
+  size_t i;
+  int s;
+  for ( i = 0; i < dim; i++ ) {
+    s = pthread_create(&tid[i], NULL, thread_main, &thr_arg[i];
+  
+    if (s != 0) {
+      pthread_join(tid[i], NULL);
+      /*return make(T_ERROR, "pthread_create");*/
+    }
+    if (s == 0)
+      up_to_success ++;
+    }
 
   /* TODO: Join (remaining) threads. */ 
 
