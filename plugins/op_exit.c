@@ -19,6 +19,8 @@ object op_exit( shell s, object op ) {
   /* pprintf( shell_output( s ), "ARGS: " );  */
   /* pprint_object( shell_output( s ), args );  */
   /* pprintf( shell_output( s ), "\n" );  */
+
+  printf("exitcoucou");
   
   pprintf( shell_output( s ), "^D\n" );
   

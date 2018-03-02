@@ -15,22 +15,30 @@
 
 
 static mat mat_mult( mat m1, mat m2 ) { 
-  size_t    dim = mat_width( m1 );
-  size_t   i, j;
+
+  size_t      dim = mat_width( m1 );
+  size_t      i, j, k;
   size_t      h = mat_height( m1 );
-  size_t      w = mat_width( m2 );  
+  size_t      w = mat_width( m2 );
   mat         m = new_mat( h, w, gen_zeros );
 
   /* TODO: Compute matrix multiplication. 
      Matrix coefficients are accessed through 
      the regular m[][] syntax. 
    */
-  for (i = 0; i < i; i++) {
-    for (j = 0; j < j; j++) {
-      printf("test");
-      m[i][j] = m1[i][j];
-    }
+
+  printf("h %d w %d dim %d", h, w, dim);	
+
+  for (i = 0; i < h; i++)
+  {
+      for (j = 0; j < w; j++)
+      {
+          m[i][j] = 0;
+          for (k = 0; k < dim; k++)
+              m[i][j] += m1[i][k]*m2[k][j];
+      }
   }
+
 
   return m; 
 }
